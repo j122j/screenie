@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #333333;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin-top: 100px;
+    }
+
+    .register-form {
+      background-color: #FCFAF9;
+      padding: 40px;
+      border-radius: 5px;
+    }
+
+    .register-form h2 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .form-control {
+      /* background-color: #48E5C2; */
+      color: #333333;
+    }
+
+    .btn-primary {
+      background-color: #48E5C2;
+      border: none;
+      color: #333333;
+    }
+
+    .btn-primary:hover {
+      background-color: #3ec0a4;
+      color: #333333;
+    }
+
+    .text-center {
+      margin-top: 20px;
+    }
+  </style>
+  <title>Screenie - Register</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="register-form">
+          <h2>Screenie - Register</h2>
+
+          @if (flashMessages.has('errors.email'))
+          <div class="alert alert-danger" role="alert">
+            {{ flashMessages.get('errors.email') }}
+          </div>
+          @end
+
+          @if (flashMessages.has('errors.password'))
+          <div class="alert alert-danger" role="alert">
+            {{ flashMessages.get('errors.password') }}
+          </div>
+          @end
+
+          <form action="{{ route('auth.register') }}" method="POST">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" id="email" name="email" required
+                value="{{ flashMessages.get('email') || '' }}">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+              <label for="password_confirmation">Confirm Password</label>
+              <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+          </form>
+          <div class="text-center">
+            <p>Already have an account? <a href="{{ route('auth.login') }}">Log In</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

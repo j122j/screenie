@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #333333;
+      color: #333333;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      margin-top: 100px;
+    }
+
+    .landing-form {
+      background-color: #FCFAF9;
+      padding: 40px;
+      border-radius: 5px;
+    }
+
+    .landing-form h2 {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-group label {
+      font-weight: bold;
+    }
+
+    .form-control {
+      /* background-color: #48E5C2; */
+      color: #333333;
+    }
+
+    .btn-primary {
+      background-color: #48E5C2;
+      border: none;
+      color: #333333;
+    }
+
+    .btn-primary:hover {
+      background-color: #3ec0a4;
+      color: #333333
+    }
+
+    .text-center {
+      margin-top: 20px;
+    }
+
+    .screenshots-container {
+      margin-top: 50px;
+      background-color: #FCFAF9;
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .screenshots-container table {
+      width: 100%;
+    }
+
+    .screenshots-container table th {
+      font-weight: bold;
+      color: #333333;
+      background-color: #48E5C2;
+    }
+
+    .screenshots-container table td {
+      padding: 8px;
+      color: #333333;
+    }
+
+    .screenshots-container img {
+      max-width: 200px;
+      height: auto;
+    }
+  </style>
+  <title>Screenie - Capture Web Screenshots</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="landing-form">
+          <h2>Screenie<br />Capture Web Screenshots</h2>
+
+          <form action="{{ route('screenshots.store') }}" method="POST">
+            <div class="form-group">
+              <label for="url">Website URL</label>
+              <input type="url" class="form-control" id="url" name="url" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Capture Screenshot</button>
+          </form>
+          <div class="text-center">
+            <p><a href="{{ route('auth.logout') }}">Log out</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container screenshots-container">
+    <h2>Existing Screenshots</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>URL</th>
+          <th>Status</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        @each(screenshot in screenshots)
+        <tr>
+          <td>{{ screenshot.id }}</td>
+          <td>{{ screenshot.url }}</td>
+          <td>{{ screenshot.status }}</td>
+          <td>
+            @if(screenshot.image)
+            <img src="{{ await screenshot.imageUrl() }}" alt="Screenshot">
+            @else
+            Loading
+            @end
+          </td>
+        </tr>
+        @end
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
